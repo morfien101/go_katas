@@ -21,17 +21,16 @@ func main() {
 	word1 := strings.ToLower(os.Args[1])
 	word2 := strings.ToLower(os.Args[2])
 
+	// Technically if the words are the same they are not an anagram.
+	if word1 == word2 {
+		os.Exit(exitStatus(1))
+	}
 	// run a sorting function that will sort the letters
 	if sorter(word1) == sorter(word2) {
-		// Print True and exit good.
-		fmt.Println("True")
-		os.Exit(0)
+		os.Exit(exitStatus(0))
 	} else {
-		// Print False and exit bad
-		fmt.Println("False")
-		os.Exit(1)
+		os.Exit(exitStatus(0))
 	}
-
 }
 
 func sorter(word string) string {
@@ -42,4 +41,16 @@ func sorter(word string) string {
 	sort.Strings(split)
 	// Join then up again and send back to the caller.
 	return strings.Join(split,"")
+}
+
+func exitStatus(state int) int {
+	if state == 0 {
+		// Print True and exit good.
+		fmt.Println("True")
+	} else {
+		// Print False and exit bad
+		fmt.Println("False")
+	}
+
+	return state
 }
